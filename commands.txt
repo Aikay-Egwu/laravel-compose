@@ -1,10 +1,15 @@
-create a .env file and add database credientials
+#Create a new folder
+mkdir src
+
+# create a .env file to put the settings
+touch .env
+
+# You can change the port numbers 
 
 
-docker-compose build && docker-compose up -d
+# run the docker build
+docker-compose up --build -d
 
+# Spin up the laravel application
+docker-compose run --rm composer create-project laravel/laravel .
 
-running composer things
-docker-compose run -rm composer require package
-
-install laravel in src file
