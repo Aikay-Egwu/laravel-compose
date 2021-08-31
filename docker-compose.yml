@@ -21,9 +21,9 @@ services:
   mysql:
     image: mysql:8.0
     restart: unless-stopped
-    tty: tty
+    tty: true
     ports:
-      - "4306:3306
+      - "4306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
@@ -38,7 +38,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
       retries: 3
       timeout: 5s
-    container-name: mysql_cont
+    container_name: mysql_cont
     networks:
       - laravel
   php:
@@ -51,4 +51,4 @@ services:
     ports:
       - "9000:9000"
     networks:
-      -laravel
+      - laravel
