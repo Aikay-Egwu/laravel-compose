@@ -14,6 +14,9 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - laravel
+    args:
+      - NGINXUSER=${NGINXUSER:-www-data}
+      - NGINXGROUP=${NGINXGROUP:-www-data}
     depends_on:
       - php
       - mysql
@@ -50,5 +53,36 @@ services:
       - ./src:/var/www/html
     ports:
       - "9000:9000"
+    args:
+      - PHPUSER=${PHPUSER:-www-data}
+      - PHPGROUP=${PHPGROUP:-www-data}
     networks:
       - laravel
+
+  composer:
+    image: composer:latest
+    container_name: composer_cont
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - laravel
+  
+  artisan:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+      args:
+        - PHPUSER=${PHPUSER:-www-data}
+        - PHPGROUP=${PHPGROUP:-www-data}
+    container_name: artisan
+    volumes:
+      - ./src:/var/www/html
+
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+    entrypoint: ['php', '/var/www/html/artisan']
+    networks:
+      - laravel
+    
