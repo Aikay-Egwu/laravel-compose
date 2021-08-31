@@ -1,3 +1,6 @@
+create a .env file and add database credientials
+
+
 docker-compose build && docker-compose up -d
 
 
