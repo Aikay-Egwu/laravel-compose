@@ -4,4 +4,7 @@ create a .env file and add database credientials
 docker-compose build && docker-compose up -d
 
 
+running composer things
+docker-compose run -rm composer require package
+
 install laravel in src file
